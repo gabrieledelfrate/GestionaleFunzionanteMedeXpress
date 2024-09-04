@@ -197,15 +197,11 @@
             });
         }
 
-        // Funzione per scaricare l'ordine come PDF
         function downloadPDF() {
-            // Importa jsPDF
             const { jsPDF } = window.jspdf;
 
-            // Crea una nuova istanza di jsPDF
             const doc = new jsPDF();
 
-            // Raccogli i dati dal modal
             const id = $('#orderId').val();
             const utente = $('#orderUser').val();
             const totale = $('#orderTotal').val();
@@ -213,7 +209,6 @@
             const dataCreazione = $('#orderDate').val();
             const dataCompletamento = $('#orderCompletionDate').val() || 'Non completato';
 
-            // Aggiungi i dati al PDF
             doc.setFontSize(16);
             doc.text('Dettagli Ordine', 10, 10);
 
@@ -225,7 +220,6 @@
             doc.text(`Data Creazione: ${dataCreazione}`, 10, 60);
             doc.text(`Data Completamento: ${dataCompletamento}`, 10, 70);
 
-            // Aggiungi i prodotti
             doc.text('Carrello:', 10, 80);
             let yOffset = 90;
             $('#orderProducts li').each(function(index) {
@@ -235,14 +229,12 @@
                 const prodottoText = `${index + 1}. ${nome} - Quantità: ${quantita}, Prezzo: €${prezzo}`;
                 doc.text(prodottoText, 10, yOffset);
                 yOffset += 10;
-                // Controlla se è necessario aggiungere una nuova pagina
                 if (yOffset > 280) {
                     doc.addPage();
                     yOffset = 10;
                 }
             });
 
-            // Salva il PDF
             doc.save(`Ordine_${id}.pdf`);
         }
     </script>
